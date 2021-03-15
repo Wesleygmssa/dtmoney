@@ -2,8 +2,14 @@ import { Container } from "./styles";
 import incomeImg from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
 import total from '../../assets/total.svg';
+import { useEffect } from "react";
 
 export function Summary(){
+    useEffect(()=>{
+        fetch('http://localhost:3000/api/transactions')
+        .then(response=> response.json())
+        .then(data =>  console.log(data))
+    },[])
     return(
         <Container>
             <div>
