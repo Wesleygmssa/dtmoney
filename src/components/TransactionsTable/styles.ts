@@ -29,9 +29,8 @@ export const Container = styled.div`
       &.desposit {
         color: var(--green);
       }
-      &.withdraw{
+      &.withdraw {
         color: red;
-      }
       }
     }
   }
