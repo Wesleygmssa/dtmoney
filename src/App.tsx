@@ -1,14 +1,13 @@
-import styled from 'styled-components';
 import React from 'react';
+import { GlobalStyled } from './styles/global';
 
-const Title = styled.h1`
-
-color: red;
-`;
 
 export function App() {
   return (
-   <Title>Hello world</Title>
+    <>
+        <GlobalStyled/>
+        <h1>Hello world</h1>
+   </>
   );
 }
 
