@@ -1,8 +1,14 @@
+import styled from 'styled-components';
 import React from 'react';
+
+const Title = styled.h1`
+
+color: red;
+`;
 
 export function App() {
   return (
-   <div>Hello world</div>
+   <Title>Hello world</Title>
   );
 }
 
