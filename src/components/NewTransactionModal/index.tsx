@@ -24,7 +24,7 @@ export function NewTransactionModal({
     event.preventDefault();
     const data = { title, value, category, type };
 
-    api.post("/transactions", data);
+    api.post("transactions", data);
   }
 
   return (
