@@ -1,5 +1,5 @@
 <h3 align="center">
-  dtmoney => Reatjs
+  dtmoney => ReactJS
   <p> O aprendizado é continuo </P>
 </h3>
 
