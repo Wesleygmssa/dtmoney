@@ -11,6 +11,7 @@ createServer({
     transaction: Model,
   },
 
+//Dados pré cadastrado
   seeds(server) {
     server.db.loadData({
       transactions: [
@@ -34,6 +35,7 @@ createServer({
     });
   },
 
+  //rotas
   routes() {
     this.namespace = "api";
 

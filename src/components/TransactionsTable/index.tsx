@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { api } from "../../services/api";
+import { TransactionsContext } from "../../TransactionsContext";
 import { Container } from "./styles";
 
-interface Request {
-  id: number;
-  title: string;
-  amount: number;
-  type: string;
-  category: string;
-  createdAt: string;
-}
-
 export function TransactionTable() {
-  const [transctions, setTransactions] = useState<Request[]>([]);
+  const transctions = useContext(TransactionsContext); // valor do context global na aplicação
 
-  useEffect(() => {
-    api
-      .get("/transactions")
-      .then((response) => setTransactions(response.data.transactions));
-  }, []);
   return (
     <Container>
       <table>
@@ -35,9 +22,18 @@ export function TransactionTable() {
             return (
               <tr key={transction.id}>
                 <td>{transction.title}</td>
-                <td className={transction.type}>{transction.amount}</td>
+                <td className={transction.type}>
+                  {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(transction.amount)}
+                </td>
                 <td>{transction.category}</td>
-                <td>{transction.createdAt}</td>
+                <td>
+                  {new Intl.DateTimeFormat("pt-BR").format(
+                    new Date(transction.createdAt)
+                  )}
+                </td>
               </tr>
             );
           })}
