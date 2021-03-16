@@ -11,13 +11,13 @@ createServer({
     transaction: Model,
   },
 
-//Dados pré cadastrado
+  //Dados pré cadastrado
   seeds(server) {
     server.db.loadData({
       transactions: [
         {
           id: 1,
-          title: "Freelenche de website",
+          title: "website",
           type: "deposit",
           category: "Dev",
           amount: 6000,
@@ -35,7 +35,7 @@ createServer({
     });
   },
 
-  //rotas
+  //rotas para retorna todos dados
   routes() {
     this.namespace = "api";
 
@@ -43,6 +43,7 @@ createServer({
       return this.schema.all("transaction");
     });
 
+    //rota de cadastro
     this.post("/transactions", (schema, request) => {
       const data = JSON.parse(request.requestBody);
       //banco de dados
