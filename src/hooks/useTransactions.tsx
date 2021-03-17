@@ -1,5 +1,11 @@
-import { createContext, useEffect, useState, ReactNode } from "react";
-import { api } from "./services/api";
+import {
+  createContext,
+  useEffect,
+  useState,
+  ReactNode,
+  useContext,
+} from "react";
+import { api } from "../services/api";
 
 interface Transaction {
   id: number;
@@ -25,11 +31,11 @@ interface TransactionsProviderProps {
 
 interface TransactionsContextData {
   transctions: Transaction[];
-  createTransaction: (Transaction: TransactionInput) => void;
+  createTransaction: (Transaction: TransactionInput) => Promise<void>;
 }
 
 // criando a variável que vai ficar global na aplicação
-export const TransactionsContext = createContext<TransactionsContextData>(
+const TransactionsContext = createContext<TransactionsContextData>(
   {} as TransactionsContextData
 );
 
@@ -42,8 +48,13 @@ export function TransactionsProvider(props: TransactionsProviderProps) {
       .then((response) => setTransactions(response.data.transactions));
   }, []);
 
-  function createTransaction(transaction: TransactionInput) {
-    api.post("transactions", transaction);
+  async function createTransaction(transactionInput: TransactionInput) {
+    const response = await api.post("transactions", {
+      ...transactionInput,
+      createdAt: new Date(),
+    });
+    const { transaction } = response.data;
+    setTransactions([...transctions, transaction]);
   }
 
   return (
@@ -51,4 +62,10 @@ export function TransactionsProvider(props: TransactionsProviderProps) {
       {props.children}
     </TransactionsContext.Provider>
   );
+}
+
+export function useTransactions() {
+  const context = useContext(TransactionsContext);
+
+  return context;
 }
